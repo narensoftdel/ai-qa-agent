@@ -20,6 +20,26 @@ export class ConsoleService {
         text: message.text()
       });
     });
+
+    // Uncaught exceptions do not emit a 'console' event even though
+    // DevTools shows them as errors, so capture them separately.
+    session.page.on('pageerror', error => {
+      this.logs.push({
+        type: 'error',
+
+        text: error.message
+      });
+    });
+
+    // Failed resource loads (404s, blocked requests, DNS failures)
+    // also surface as errors in DevTools.
+    session.page.on('requestfailed', request => {
+      this.logs.push({
+        type: 'error',
+
+        text: `Failed to load ${request.url()} : ${request.failure()?.errorText ?? 'unknown error'}`
+      });
+    });
   }
 
   getLogs(): BrowserConsoleLog[] {
