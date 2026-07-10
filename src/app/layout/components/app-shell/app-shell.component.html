@@ -1,0 +1,42 @@
+<mat-sidenav-container class="shell">
+  <mat-sidenav
+    #sidenav
+    class="shell__sidenav"
+    [mode]="isMobile() ? 'over' : 'side'"
+    [opened]="isMobile() ? isMenuOpen() : true"
+    (closedStart)="closeMenu()"
+  >
+    <app-sidebar [navItems]="navItems" [isCompact]="isMobile()"></app-sidebar>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="shell__content-panel">
+    <app-toolbar
+      title="Security Command Center"
+      [isDarkMode]="isDarkMode()"
+      (menuToggle)="toggleMenu()"
+      (themeToggle)="toggleTheme()"
+    ></app-toolbar>
+
+    <section class="shell__page">
+      <header class="shell__page-header">
+        <app-breadcrumb [items]="breadcrumbs()"></app-breadcrumb>
+        <div class="shell__page-header-actions">
+          <button mat-stroked-button type="button">
+            <mat-icon>download</mat-icon>
+            Export
+          </button>
+          <button mat-flat-button color="primary" type="button">
+            <mat-icon>add</mat-icon>
+            New Alert
+          </button>
+        </div>
+      </header>
+
+      <main class="shell__content">
+        <div [@routeAnimation]="outlet.isActivated ? outlet.activatedRoute : ''">
+          <router-outlet #outlet="outlet"></router-outlet>
+        </div>
+      </main>
+    </section>
+  </mat-sidenav-content>
+</mat-sidenav-container>

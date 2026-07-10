@@ -1,0 +1,31 @@
+.page-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  border: 1px solid var(--app-border);
+  border-radius: 1.25rem;
+  background: var(--app-surface);
+  box-shadow: var(--app-shadow);
+}
+
+.page-header__icon {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 999px;
+  background: var(--app-surface-muted);
+  color: var(--app-accent);
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.page-header p {
+  margin: 0.2rem 0 0;
+  color: color-mix(in srgb, var(--app-foreground) 70%, transparent);
+}

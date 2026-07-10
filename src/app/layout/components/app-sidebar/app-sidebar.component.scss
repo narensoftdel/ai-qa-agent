@@ -1,0 +1,110 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1.25rem 0.9rem 1.25rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(248, 250, 252, 0.95));
+  border-right: 1px solid var(--app-border);
+  backdrop-filter: blur(18px);
+}
+
+:host-context(html.dark-theme) .sidebar {
+  background: linear-gradient(180deg, rgba(16, 26, 45, 0.96), rgba(7, 17, 31, 0.96));
+}
+
+.sidebar--compact {
+  padding-inline: 0.65rem;
+}
+
+.sidebar__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.25rem 0.25rem 1rem;
+}
+
+.sidebar__brand-mark {
+  display: grid;
+  place-items: center;
+  width: 2.7rem;
+  height: 2.7rem;
+  border-radius: 0.85rem;
+  background: linear-gradient(135deg, var(--app-accent), #60a5fa);
+  color: #fff;
+  font-weight: 800;
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.28);
+}
+
+.sidebar__brand-copy h2 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.sidebar__brand-copy p {
+  margin: 0.2rem 0 0;
+  font-size: 0.8rem;
+  color: color-mix(in srgb, var(--app-foreground) 65%, transparent);
+}
+
+.sidebar__nav {
+  display: grid;
+  gap: 0.25rem;
+  margin-top: 1rem;
+}
+
+.sidebar__nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.72rem 0.8rem;
+  border-radius: 0.95rem;
+  color: var(--app-foreground);
+  text-decoration: none;
+  transition: all 180ms ease;
+}
+
+.sidebar__nav-item:hover {
+  background: color-mix(in srgb, var(--app-accent) 10%, transparent);
+}
+
+.sidebar__badge {
+  margin-left: auto;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  background: var(--app-surface-muted);
+  color: var(--app-accent);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.sidebar__footer {
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+.sidebar__footer-card {
+  padding: 0.95rem 1rem;
+  border-radius: 1rem;
+  background: var(--app-surface-muted);
+  border: 1px solid var(--app-border);
+}
+
+.sidebar__footer-label {
+  margin: 0 0 0.2rem;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: color-mix(in srgb, var(--app-foreground) 65%, transparent);
+}
+
+.active-link {
+  background: color-mix(in srgb, var(--app-accent) 14%, transparent);
+  color: var(--app-accent);
+}
+
+@media (max-width: 900px) {
+  .sidebar {
+    border-right: none;
+    border-bottom: 1px solid var(--app-border);
+  }
+}

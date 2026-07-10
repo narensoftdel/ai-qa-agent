@@ -1,0 +1,652 @@
+{
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\.prettierrc.json": {
+    "mtime": 1783665186.2200837,
+    "ast_hash": "fa11965328ea69124f1f268535b58bc0",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\.vscode\\extensions.json": {
+    "mtime": 1783416205.4997609,
+    "ast_hash": "66fd9e60d4633b6099fe02e06a7075ea",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\.vscode\\launch.json": {
+    "mtime": 1783416205.5018547,
+    "ast_hash": "430386a2f03e9d559664c196344c121b",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\.vscode\\tasks.json": {
+    "mtime": 1783416205.5028436,
+    "ast_hash": "d2fc2624d783980be281b4cf0acc2455",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\angular.json": {
+    "mtime": 1783417291.344284,
+    "ast_hash": "e8780ffd9768a55a5f74f36fbe6831b5",
+    "semantic_hash": ""
+  },
+  "package.json": {
+    "mtime": 1783665260.5365622,
+    "ast_hash": "8005523bd84c9275c02d13fdfff871b6",
+    "semantic_hash": ""
+  },
+  "src/agent/agent.manager.ts": {
+    "mtime": 1783670528.11412,
+    "ast_hash": "0a29e989fdc6eeb42968d81cf8663f51",
+    "semantic_hash": ""
+  },
+  "src/ai/ai.service.ts": {
+    "mtime": 1783669666.1510656,
+    "ast_hash": "4232489c6004ec3e71113b7a57911921",
+    "semantic_hash": ""
+  },
+  "src/app.ts": {
+    "mtime": 1783665245.4203258,
+    "ast_hash": "296a4a0560410e1e5df2ab9e8aa4879b",
+    "semantic_hash": ""
+  },
+  "src/config/env.ts": {
+    "mtime": 1783666794.2389104,
+    "ast_hash": "ce2e1c48044cbd1de102cd6a10454f66",
+    "semantic_hash": ""
+  },
+  "src/config/load-env.ts": {
+    "mtime": 1783666775.4403892,
+    "ast_hash": "ab83d2f68b3dbc684ebc00b454659e02",
+    "semantic_hash": ""
+  },
+  "src/config/logger.ts": {
+    "mtime": 1783665245.449153,
+    "ast_hash": "6da7d5370ffc84c1261d5bbf1c6d9230",
+    "semantic_hash": ""
+  },
+  "src/controllers/dashboard.controller.ts": {
+    "mtime": 1783665245.4923017,
+    "ast_hash": "cccf712967336597a511373b8975b228",
+    "semantic_hash": ""
+  },
+  "src/controllers/scanner.controller.ts": {
+    "mtime": 1783665245.5213492,
+    "ast_hash": "08dd426efcaabe35a16c1ee45dd09936",
+    "semantic_hash": ""
+  },
+  "src/models/browser.model.ts": {
+    "mtime": 1783574201.1569662,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": ""
+  },
+  "src/models/scan.model.ts": {
+    "mtime": 1783665245.5394585,
+    "ast_hash": "7d414826f7ac61c00f7f33e5c7fdab52",
+    "semantic_hash": ""
+  },
+  "src/playwright/browser.agent.ts": {
+    "mtime": 1783665245.5594592,
+    "ast_hash": "d1f4134135bbacfc8333beb14d67f2aa",
+    "semantic_hash": ""
+  },
+  "src/playwright/browser.manager.ts": {
+    "mtime": 1783665245.575866,
+    "ast_hash": "0135e56c27130f6e211b1742bf39a240",
+    "semantic_hash": ""
+  },
+  "src/playwright/browser.service.ts": {
+    "mtime": 1783665245.5903022,
+    "ast_hash": "acb97fdd1cd68de4638f27ad9608d354",
+    "semantic_hash": ""
+  },
+  "src/playwright/browser.session.ts": {
+    "mtime": 1783665245.603294,
+    "ast_hash": "9914c369abe3893cb6ca63916653cc1d",
+    "semantic_hash": ""
+  },
+  "src/playwright/browser.types.ts": {
+    "mtime": 1783665245.61876,
+    "ast_hash": "79edf6ba314c083d81ce447851bfdf66",
+    "semantic_hash": ""
+  },
+  "src/playwright/console.service.ts": {
+    "mtime": 1783669594.862885,
+    "ast_hash": "98eb14aebd7b40e73070402b99f4481b",
+    "semantic_hash": ""
+  },
+  "src/playwright/login.agent.ts": {
+    "mtime": 1783665245.6480896,
+    "ast_hash": "297fc29088af7d76ed34f6e30a5f6efa",
+    "semantic_hash": ""
+  },
+  "src/playwright/login.detector.ts": {
+    "mtime": 1783665245.670241,
+    "ast_hash": "04139467f0036061b98b2bef0350f0e3",
+    "semantic_hash": ""
+  },
+  "src/playwright/login.strategy.ts": {
+    "mtime": 1783665245.6948695,
+    "ast_hash": "f4168a03da61361e42cf1e5487b6dd49",
+    "semantic_hash": ""
+  },
+  "src/playwright/login.types.ts": {
+    "mtime": 1783665245.7119331,
+    "ast_hash": "a0b4718b88f985f1afe1b1b5a1a138ed",
+    "semantic_hash": ""
+  },
+  "src/playwright/navigation.service.ts": {
+    "mtime": 1783665245.7391787,
+    "ast_hash": "ed31c6cf6372123d7381a64cd23e6922",
+    "semantic_hash": ""
+  },
+  "src/playwright/network.service.ts": {
+    "mtime": 1783669588.1946735,
+    "ast_hash": "c752277522003caf917159fc5a5bd162",
+    "semantic_hash": ""
+  },
+  "src/playwright/screenshot.service.ts": {
+    "mtime": 1783665245.7966433,
+    "ast_hash": "ace33c94fecb4e1337cb0b38276226e7",
+    "semantic_hash": ""
+  },
+  "src/playwright/storage.service.ts": {
+    "mtime": 1783665245.8396833,
+    "ast_hash": "1e91aebf8a233165c3c969302b44e85a",
+    "semantic_hash": ""
+  },
+  "src/reports/html-report.service.ts": {
+    "mtime": 1783665245.873983,
+    "ast_hash": "753834972094258d5235357b0a02a301",
+    "semantic_hash": ""
+  },
+  "src/reports/report.service.ts": {
+    "mtime": 1783665976.533584,
+    "ast_hash": "88fcfdfa459c88873fd83823c837b597",
+    "semantic_hash": ""
+  },
+  "src/routes/index.ts": {
+    "mtime": 1783665245.9565344,
+    "ast_hash": "882c490ad4261ae163ad6d87479110ba",
+    "semantic_hash": ""
+  },
+  "src/routes/scanner.routes.ts": {
+    "mtime": 1783652139.51986,
+    "ast_hash": "c82c4e50795486f643e68909d50b393a",
+    "semantic_hash": ""
+  },
+  "src/scanner/scan.progress.ts": {
+    "mtime": 1783665246.0375466,
+    "ast_hash": "39643522d9a04ce0277e3d68317ecbc5",
+    "semantic_hash": ""
+  },
+  "src/scanner/scan.queue.ts": {
+    "mtime": 1783665246.1406438,
+    "ast_hash": "ab917fb2e3ef6a3ee0888d9efdad3703",
+    "semantic_hash": ""
+  },
+  "src/security/cookies.check.ts": {
+    "mtime": 1783665246.2134914,
+    "ast_hash": "ae6d578aa6053d2ee9a7bd5ccea1fbfd",
+    "semantic_hash": ""
+  },
+  "src/security/forms.check.ts": {
+    "mtime": 1783669625.295942,
+    "ast_hash": "b82ce5a52e91ff5a54ff5847281dbeef",
+    "semantic_hash": ""
+  },
+  "src/security/headers.check.ts": {
+    "mtime": 1783669613.9999583,
+    "ast_hash": "2cfe9ac6bc91285223e9c1af8b316a42",
+    "semantic_hash": ""
+  },
+  "src/security/security.types.ts": {
+    "mtime": 1783665246.279596,
+    "ast_hash": "4ce85dd036ec653f8d79cfc90a542d16",
+    "semantic_hash": ""
+  },
+  "src/server.ts": {
+    "mtime": 1783667572.4413202,
+    "ast_hash": "b34f91f81c306468510fca30cbb8b175",
+    "semantic_hash": ""
+  },
+  "src/services/artifact.service.ts": {
+    "mtime": 1783669581.2713103,
+    "ast_hash": "6ca0e0148fa1f2470e63baf7c451ebd0",
+    "semantic_hash": ""
+  },
+  "src/services/crawler.service.ts": {
+    "mtime": 1783665246.406943,
+    "ast_hash": "27cc3442b46421335bceecc8ba11aec5",
+    "semantic_hash": ""
+  },
+  "src/services/scanner.service.ts": {
+    "mtime": 1783665246.4546814,
+    "ast_hash": "1178a06fa8ca23eb97e12bef477bfc9c",
+    "semantic_hash": ""
+  },
+  "tsconfig.json": {
+    "mtime": 1783493417.187711,
+    "ast_hash": "8c671a45f9fc4711463ced01fe5bd22b",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\package.json": {
+    "mtime": 1783665275.1732488,
+    "ast_hash": "7f36f0f0e1e7444455d3f517deb8c19e",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\app.component.spec.ts": {
+    "mtime": 1783665228.7425256,
+    "ast_hash": "3cec5127ccddd43afdabfd973d393135",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\app.component.ts": {
+    "mtime": 1783665228.7647207,
+    "ast_hash": "7229b1e6db8a0e82eade286fb13ec83c",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\app.config.ts": {
+    "mtime": 1783665228.7888558,
+    "ast_hash": "13b2702aa7ed2c87cc64b3d8d417ec48",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\app.routes.ts": {
+    "mtime": 1783665228.814303,
+    "ast_hash": "54daf4ba8eb2ae8d3dcf10d1130e9f19",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\core\\constants\\navigation.ts": {
+    "mtime": 1783665228.8294556,
+    "ast_hash": "976def25764213934cdcf1f35046dab7",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\core\\mock-data\\api-endpoints.mock.ts": {
+    "mtime": 1783665228.8990045,
+    "ast_hash": "4a7233d39b1403eb3c9d024d4a64a4bd",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\core\\mock-data\\console-logs.mock.ts": {
+    "mtime": 1783665228.9233701,
+    "ast_hash": "16d227fd3606e097dc51269c439b6d92",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\core\\mock-data\\cookies.mock.ts": {
+    "mtime": 1783665228.946377,
+    "ast_hash": "c666568d2655639023325b4b1c05f961",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\core\\mock-data\\findings.mock.ts": {
+    "mtime": 1783665228.984525,
+    "ast_hash": "af499b1e898392466b18d70bb3dea4dd",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\core\\mock-data\\index.ts": {
+    "mtime": 1783421781.092179,
+    "ast_hash": "c6cb627f6087b7fbf403c5eed8d0921e",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\core\\mock-data\\pages.mock.ts": {
+    "mtime": 1783665229.0383842,
+    "ast_hash": "c30b921b9980d44a69afbfcaa3c34858",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\core\\mock-data\\reports.mock.ts": {
+    "mtime": 1783665229.064374,
+    "ast_hash": "c58345359c4f99880e71361b755a6dae",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\core\\mock-data\\scans.mock.ts": {
+    "mtime": 1783665229.0998957,
+    "ast_hash": "46246bd56a62881f22930ae13ed3cb92",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\core\\mock-data\\screenshots.mock.ts": {
+    "mtime": 1783421756.0638459,
+    "ast_hash": "5ee7d94e1ccaa84c1913118964808812",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\core\\mock-data\\security-headers.mock.ts": {
+    "mtime": 1783665229.1329076,
+    "ast_hash": "be78c6bc0c57642394c2cae50c1d072d",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\core\\models\\api-endpoint.model.ts": {
+    "mtime": 1783421424.3595457,
+    "ast_hash": "09b330456f152ec7e29f66b1a199ceb5",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\core\\models\\console-log.model.ts": {
+    "mtime": 1783421440.400906,
+    "ast_hash": "57ef8180d6d4ffa29d6bb961944b5dd5",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\core\\models\\cookie.model.ts": {
+    "mtime": 1783421432.5068913,
+    "ast_hash": "34ef075df2072df9a2ef01782730d85c",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\core\\models\\dashboard.model.ts": {
+    "mtime": 1783665229.1771984,
+    "ast_hash": "8849157a3c6dc4e0fa9d788eea7eb6c6",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\core\\models\\finding.model.ts": {
+    "mtime": 1783420904.2377613,
+    "ast_hash": "f2054de6f03792dd9dda8bf231cfda36",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\core\\models\\index.ts": {
+    "mtime": 1783421445.1368012,
+    "ast_hash": "90bfa8098957bdc2f91bce08c3a2de30",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\core\\models\\navigation.model.ts": {
+    "mtime": 1783665229.1997793,
+    "ast_hash": "b8a0984c3d2230417ed59b7dfea3ce31",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\core\\models\\notification.model.ts": {
+    "mtime": 1783420912.5384655,
+    "ast_hash": "e5bad79dcd25612fcdbf46c8ec5aa449",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\core\\models\\page.model.ts": {
+    "mtime": 1783421419.501724,
+    "ast_hash": "68f41072dfacbf150a04d3c98bcc7d10",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\core\\models\\report.model.ts": {
+    "mtime": 1783420906.8536754,
+    "ast_hash": "5e77b285057fbd3192f26ba1a59749ed",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\core\\models\\scan.model.ts": {
+    "mtime": 1783496379.234941,
+    "ast_hash": "6b5e5c89d76ff301e60b8775c1ebf29b",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\core\\models\\screenshot.model.ts": {
+    "mtime": 1783421436.563972,
+    "ast_hash": "35d466b3321b13e317905a161ab122d3",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\core\\models\\security-header.model.ts": {
+    "mtime": 1783421428.4136703,
+    "ast_hash": "2a534b6601bfb5e8c829bac46b4fb3bb",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\core\\models\\settings.model.ts": {
+    "mtime": 1783420911.4795978,
+    "ast_hash": "97891a32da56fd8fcb98532349a310e3",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\core\\services\\dashboard.service.ts": {
+    "mtime": 1783665229.2617652,
+    "ast_hash": "8f4970c6202e87ca43bc5d36b055a031",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\core\\services\\finding.service.ts": {
+    "mtime": 1783665229.27576,
+    "ast_hash": "ff365fa5168049d10455aaeb001336b1",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\core\\services\\index.ts": {
+    "mtime": 1783421014.6526196,
+    "ast_hash": "f689caf76c6766e245534c85e76dc6b5",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\core\\services\\notification.service.ts": {
+    "mtime": 1783665229.299387,
+    "ast_hash": "334e55691150ffcf3826e5538bfdee60",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\core\\services\\report.service.ts": {
+    "mtime": 1783665229.310379,
+    "ast_hash": "f81be366b4f800359ae98fa66559f0e4",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\core\\services\\scanner.service.ts": {
+    "mtime": 1783665229.3363812,
+    "ast_hash": "546c797d8736165d75b700ec23af73be",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\core\\services\\settings.service.ts": {
+    "mtime": 1783665229.3560061,
+    "ast_hash": "dec93beee0a217db3fecf4e542453de1",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\core\\services\\theme.service.ts": {
+    "mtime": 1783665229.371997,
+    "ast_hash": "98f6ac4feae3c64e4f6df07f8aebf20f",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\core\\utils\\mock-api.util.ts": {
+    "mtime": 1783665229.3850403,
+    "ast_hash": "b858ddeed098f32dccee00dfbd27eedf",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\features\\about\\about.component.ts": {
+    "mtime": 1783665229.40159,
+    "ast_hash": "02f6ee953ba1830007f29ad7df5f1caf",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\features\\dashboard\\dashboard.component.ts": {
+    "mtime": 1783665229.5585394,
+    "ast_hash": "2ed02c6b9535c9aa72152cd63a3a7a15",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\features\\findings\\findings.component.ts": {
+    "mtime": 1783665229.675162,
+    "ast_hash": "523b2625c023dde463598ed1f5cc935d",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\features\\help\\help.component.ts": {
+    "mtime": 1783665229.7027724,
+    "ast_hash": "a44d846383634c0c56eacad8eef4c259",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\features\\operations\\operations.component.ts": {
+    "mtime": 1783665229.7248032,
+    "ast_hash": "5cda61353d2b9d24e1b617c367a6eff8",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\features\\page-details\\page-details.component.ts": {
+    "mtime": 1783665229.7632678,
+    "ast_hash": "681534d75fb259bcb2278ca3230a361c",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\features\\reports\\reports.component.ts": {
+    "mtime": 1783665229.8298237,
+    "ast_hash": "6b4f51affc0836dcec623ba77ad924b7",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\features\\scan\\new-scan\\new-scan.component.ts": {
+    "mtime": 1783665229.9490986,
+    "ast_hash": "5894260aabdcbf1271902e18583eb8c7",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\features\\scan\\scan-history\\scan-history.component.ts": {
+    "mtime": 1783665230.0141168,
+    "ast_hash": "aa32c8646032fa380a1868b26aa4fa0e",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\features\\scan\\scan-result\\scan-result.component.spec.ts": {
+    "mtime": 1783665230.1005535,
+    "ast_hash": "eebf9c53e61d3a3f2d9a16e731c1b3cb",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\features\\scan\\scan-result\\scan-result.component.ts": {
+    "mtime": 1783665230.1633992,
+    "ast_hash": "c1e6a1042d822b995eb40aec3d5eb5db",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\features\\settings\\settings.component.ts": {
+    "mtime": 1783665230.193056,
+    "ast_hash": "93b82d310c45888f4a6281fddcea5577",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\features\\threats\\threats.component.ts": {
+    "mtime": 1783665230.2065735,
+    "ast_hash": "7e9edb33d3423b5b28330296a3016b23",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\layout\\components\\app-breadcrumb\\app-breadcrumb.component.ts": {
+    "mtime": 1783665230.2442088,
+    "ast_hash": "c3a8b1c91386cd59cd8c79aae3584884",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\layout\\components\\app-shell\\app-shell.component.ts": {
+    "mtime": 1783665230.2965224,
+    "ast_hash": "cf4e648cc52109dd594f2b7e01dec6c6",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\layout\\components\\app-sidebar\\app-sidebar.component.ts": {
+    "mtime": 1783665230.3438947,
+    "ast_hash": "4c256ed005519854c3f540a2b970fcc7",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\layout\\components\\app-toolbar\\app-toolbar.component.ts": {
+    "mtime": 1783665230.3870153,
+    "ast_hash": "0110aa39dac65b2c5ac701b075712201",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\shared\\animations\\route-animations.ts": {
+    "mtime": 1783665230.3990693,
+    "ast_hash": "3504b7deede451bf4bebd050c928bf93",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\shared\\components\\confirmation-dialog.component.ts": {
+    "mtime": 1783665230.41609,
+    "ast_hash": "020bede9cd64ddb52c144f52743abc52",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\shared\\components\\empty-state.component.ts": {
+    "mtime": 1783665230.4325147,
+    "ast_hash": "cc41235f564761a632cb241e256bbbee",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\shared\\components\\finding-card.component.ts": {
+    "mtime": 1783665230.454521,
+    "ast_hash": "cd1cf39ae42361079b8dc62cae17ab67",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\shared\\components\\index.ts": {
+    "mtime": 1783665230.4635265,
+    "ast_hash": "593fa7eb3ac70d24e0ab7fa87fa115c5",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\shared\\components\\loading-spinner.component.ts": {
+    "mtime": 1783665230.473533,
+    "ast_hash": "0b2a67d2912ef2f208e48ecbc1a4aadc",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\shared\\components\\page-header\\page-header.component.ts": {
+    "mtime": 1783665230.5020604,
+    "ast_hash": "c54fb8a634ea92246fbd783b912202a6",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\shared\\components\\progress-card.component.ts": {
+    "mtime": 1783665230.5275793,
+    "ast_hash": "50ebc2c96f4901b4ce437e9227159802",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\shared\\components\\risk-card.component.ts": {
+    "mtime": 1783665230.5585213,
+    "ast_hash": "f26359305e8bdef0234629c63aab35be",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\shared\\components\\scan-card.component.ts": {
+    "mtime": 1783665230.5868013,
+    "ast_hash": "319b818c0581d2fbd55de5a6487e49bc",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\shared\\components\\severity-badge.component.ts": {
+    "mtime": 1783665230.6038508,
+    "ast_hash": "546d69baa7a2c9c47aaf91a0d23859d2",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\shared\\components\\skeleton-loader.component.ts": {
+    "mtime": 1783665230.6247647,
+    "ast_hash": "380b64e871081218a128dd0e50d62a9d",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\shared\\components\\statistic-card.component.ts": {
+    "mtime": 1783665230.6561825,
+    "ast_hash": "0cd5934a553186bf6e452812a07b0687",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\shared\\components\\timeline.component.ts": {
+    "mtime": 1783665230.6917279,
+    "ast_hash": "a2b08ef4e0401af980bb4c8a33ffecc5",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\shared\\components\\toast.component.ts": {
+    "mtime": 1783665230.7174766,
+    "ast_hash": "719351c8f4e628119b5f97cc42153a7e",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\main.ts": {
+    "mtime": 1783665230.7434046,
+    "ast_hash": "b3b97a0bd0632f558aeddac804702cc6",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\tsconfig.app.json": {
+    "mtime": 1783416205.496351,
+    "ast_hash": "8d99fdcdf658986569ea23b33df685a6",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\tsconfig.json": {
+    "mtime": 1783416205.4923787,
+    "ast_hash": "dd3c8905847764e8a227c8bbb23ffab6",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\tsconfig.spec.json": {
+    "mtime": 1783416205.4973521,
+    "ast_hash": "fde196cef563197a78958ceaea284638",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\CLAUDE.md": {
+    "mtime": 1783570761.9273205,
+    "ast_hash": "8a6643a420fdad6bfb583523bc6cef16",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\README.md": {
+    "mtime": 1783416205.4903457,
+    "ast_hash": "ebc271a15a614101004b54961f0fa938",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\app.component.html": {
+    "mtime": 1783665228.5791006,
+    "ast_hash": "8309a07ee5107aaef1f11f05b3aeedb7",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\features\\scan\\scan-result\\scan-result.component.html": {
+    "mtime": 1783665230.0900364,
+    "ast_hash": "2b35724c5e3c44f079eca029d2624671",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\layout\\components\\app-breadcrumb\\app-breadcrumb.component.html": {
+    "mtime": 1783665230.2210941,
+    "ast_hash": "6dd69d08d8b89d6d25ca49f1ce3fec45",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\layout\\components\\app-shell\\app-shell.component.html": {
+    "mtime": 1783665230.2596698,
+    "ast_hash": "2003afd40da59eae96473ba09bc2166c",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\layout\\components\\app-sidebar\\app-sidebar.component.html": {
+    "mtime": 1783665230.3168721,
+    "ast_hash": "3df4072bd643b672c726492b83f6358b",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\layout\\components\\app-toolbar\\app-toolbar.component.html": {
+    "mtime": 1783665230.3650014,
+    "ast_hash": "da32f23ad7a00077adcdc73adffe96f7",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\app\\shared\\components\\page-header\\page-header.component.html": {
+    "mtime": 1783665230.4845414,
+    "ast_hash": "3fc14a2388e15981753c54e16c7bfa61",
+    "semantic_hash": ""
+  },
+  "D:\\angular_test\\ai-security-agent\\ai-security-agent\\src\\index.html": {
+    "mtime": 1783665230.7308345,
+    "ast_hash": "bb2ff9633bb24499460a7dbdc0bd558a",
+    "semantic_hash": ""
+  }
+}

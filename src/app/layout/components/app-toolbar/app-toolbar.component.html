@@ -1,0 +1,59 @@
+<mat-toolbar class="toolbar">
+  @if (showMenuToggle) {
+    <button
+      mat-icon-button
+      type="button"
+      class="toolbar__icon"
+      (click)="onMenuToggle()"
+      aria-label="Toggle navigation"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+  }
+
+  <div class="toolbar__title-group">
+    <span class="toolbar__eyebrow">Sentinel AI</span>
+    <h1>{{ title }}</h1>
+  </div>
+
+  <span class="toolbar__spacer"></span>
+
+  <button mat-icon-button type="button" class="toolbar__icon" aria-label="Notifications">
+    <mat-icon>notifications_none</mat-icon>
+  </button>
+
+  <button
+    mat-icon-button
+    type="button"
+    class="toolbar__icon toolbar__icon--theme"
+    (click)="onThemeToggle()"
+    aria-label="Toggle theme"
+  >
+    <mat-icon>{{ isDarkMode ? 'light_mode' : 'dark_mode' }}</mat-icon>
+  </button>
+
+  <button
+    mat-icon-button
+    type="button"
+    class="toolbar__profile"
+    [matMenuTriggerFor]="profileMenu"
+    aria-label="User profile"
+  >
+    <mat-icon>account_circle</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-menu #profileMenu="matMenu">
+  <button mat-menu-item>
+    <mat-icon>person</mat-icon>
+    <span>Profile</span>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>settings</mat-icon>
+    <span>Preferences</span>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>logout</mat-icon>
+    <span>Sign out</span>
+  </button>
+</mat-menu>

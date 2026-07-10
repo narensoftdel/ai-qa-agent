@@ -1,0 +1,7 @@
+node_modules
+dist
+graphify-out
+backend/storage
+backend/node_modules
+backend/dist
+package-lock.json

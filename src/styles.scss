@@ -1,0 +1,89 @@
+@use '@angular/material' as mat;
+
+$light-theme: mat.define-theme(
+  (
+    color: (
+      theme-type: light,
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette
+    ),
+    typography: (
+      brand-family: 'Inter, "Segoe UI", sans-serif',
+      plain-family: 'Inter, "Segoe UI", sans-serif'
+    ),
+    density: (
+      scale: 0
+    )
+  )
+);
+
+$dark-theme: mat.define-theme(
+  (
+    color: (
+      theme-type: dark,
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette
+    ),
+    typography: (
+      brand-family: 'Inter, "Segoe UI", sans-serif',
+      plain-family: 'Inter, "Segoe UI", sans-serif'
+    ),
+    density: (
+      scale: 0
+    )
+  )
+);
+
+:root {
+  color-scheme: light;
+  --app-background: #f4f7fb;
+  --app-surface: #ffffff;
+  --app-surface-muted: #eef3ff;
+  --app-foreground: #0c1427;
+  --app-border: rgba(12, 20, 39, 0.1);
+  --app-accent: #2563eb;
+  --app-accent-strong: #0f172a;
+  --app-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
+}
+
+html {
+  background: var(--app-background);
+  color: var(--app-foreground);
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  @include mat.core();
+  @include mat.all-component-themes($light-theme);
+}
+
+html.dark-theme {
+  color-scheme: dark;
+  --app-background: #07111f;
+  --app-surface: #101a2d;
+  --app-surface-muted: #17253b;
+  --app-foreground: #f5f7ff;
+  --app-border: rgba(245, 247, 255, 0.12);
+  --app-accent: #8b5cf6;
+  --app-accent-strong: #f8fafc;
+  --app-shadow: 0 20px 45px rgba(2, 6, 23, 0.55);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--app-background);
+  color: var(--app-foreground);
+}
+
+button,
+a,
+input,
+textarea {
+  font: inherit;
+}
+
+mat-icon {
+  font-family: 'Material Symbols Outlined', sans-serif;
+}

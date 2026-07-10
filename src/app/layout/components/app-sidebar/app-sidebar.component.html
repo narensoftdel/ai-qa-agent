@@ -1,0 +1,39 @@
+<aside class="sidebar" [class.sidebar--compact]="isCompact">
+  <div class="sidebar__brand">
+    <div class="sidebar__brand-mark">S</div>
+    @if (!isCompact) {
+      <div class="sidebar__brand-copy">
+        <h2>Sentinel AI</h2>
+        <p>Defender-inspired command center</p>
+      </div>
+    }
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <nav class="sidebar__nav" aria-label="Primary navigation">
+    @for (item of navItems; track item.path) {
+      <a
+        mat-list-item
+        [routerLink]="item.path"
+        routerLinkActive="active-link"
+        class="sidebar__nav-item"
+      >
+        <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+        <span matListItemTitle>{{ item.label }}</span>
+        @if (item.badge) {
+          <span class="sidebar__badge">{{ item.badge }}</span>
+        }
+      </a>
+    }
+  </nav>
+
+  @if (!isCompact) {
+    <div class="sidebar__footer">
+      <div class="sidebar__footer-card">
+        <p class="sidebar__footer-label">Protection status</p>
+        <strong>Operational</strong>
+      </div>
+    </div>
+  }
+</aside>

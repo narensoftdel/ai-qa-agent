@@ -1,0 +1,63 @@
+.toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.9rem 1.15rem;
+  background: rgba(255, 255, 255, 0.78);
+  color: var(--app-foreground);
+  border-bottom: 1px solid var(--app-border);
+  backdrop-filter: blur(18px);
+}
+
+:host-context(html.dark-theme) .toolbar {
+  background: rgba(10, 18, 32, 0.8);
+}
+
+.toolbar__title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.toolbar__eyebrow {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--app-accent);
+}
+
+.toolbar__title-group h1 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.toolbar__spacer {
+  flex: 1;
+}
+
+.toolbar__icon,
+.toolbar__profile {
+  border-radius: 999px;
+  background: var(--app-surface-muted);
+  color: var(--app-foreground);
+}
+
+.toolbar__profile {
+  display: grid;
+  place-items: center;
+}
+
+@media (max-width: 640px) {
+  .toolbar {
+    padding-inline: 0.85rem;
+  }
+
+  .toolbar__title-group h1 {
+    font-size: 0.92rem;
+  }
+}

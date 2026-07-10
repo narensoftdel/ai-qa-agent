@@ -1,0 +1,325 @@
+<div @routeAnimation class="page-shell">
+  @if (loading()) {
+    <mat-card class="result-card">
+      <div class="result-card__header">
+        <div>
+          <p class="result-card__eyebrow">
+            {{ status() || 'Running Security Scan' }}
+          </p>
+
+          <h2>
+            {{ scan()?.url || 'Scanning Application...' }}
+          </h2>
+
+          <p class="result-card__subtitle">
+            {{ currentStep() }}
+          </p>
+        </div>
+      </div>
+
+      <mat-progress-bar mode="determinate" [value]="progress()"> </mat-progress-bar>
+    </mat-card>
+  } @else {
+    <mat-card class="result-card">
+      <div class="result-card__header">
+        <div>
+          <p class="result-card__eyebrow">
+            {{ status() }}
+          </p>
+
+          <h2>
+            {{ report()?.applicationName || scan()?.url }}
+          </h2>
+
+          <p class="result-card__subtitle">
+            {{ currentStep() }}
+          </p>
+        </div>
+
+        <button mat-flat-button color="primary" type="button" (click)="downloadReport()">
+          <mat-icon>download</mat-icon>
+
+          Export Report
+        </button>
+      </div>
+
+      <mat-progress-bar mode="determinate" [value]="progress()"> </mat-progress-bar>
+
+      <div class="summary-grid">
+        <div class="summary-card summary-card--risk">
+          <div class="summary-card__label">Risk Score</div>
+
+          <div class="summary-card__value">
+            {{ riskScore() }}
+          </div>
+
+          <div class="summary-card__meta">
+            {{ getCriticalCount() }} Critical •
+
+            {{ getHighCount() }} High •
+
+            {{ getMediumCount() }} Medium
+          </div>
+        </div>
+
+        <div class="summary-card">
+          <div class="summary-card__label">Pages</div>
+
+          <div class="summary-card__value">
+            {{ pages() }}
+          </div>
+
+          <div class="summary-card__meta">
+            {{ status() }}
+          </div>
+        </div>
+
+        <div class="summary-card">
+          <div class="summary-card__label">APIs</div>
+
+          <div class="summary-card__value">
+            {{ apis() }}
+          </div>
+
+          <div class="summary-card__meta">API requests captured</div>
+        </div>
+
+        <div class="summary-card">
+          <div class="summary-card__label">Findings</div>
+
+          <div class="summary-card__value">
+            {{ findings().length }}
+          </div>
+
+          <div class="summary-card__meta">
+            {{ getCriticalCount() }} Critical •
+
+            {{ getHighCount() }} High
+          </div>
+        </div>
+
+        <div class="summary-card">
+          <div class="summary-card__label">Duration</div>
+
+          <div class="summary-card__value">
+            {{ duration() }}
+          </div>
+
+          <div class="summary-card__meta">
+            {{ status() }}
+          </div>
+        </div>
+      </div>
+
+      <mat-tab-group mat-stretch-tabs="false" class="result-tabs">
+        <mat-tab label="Overview">
+          <div class="tab-content">
+            <div class="overview-grid">
+              <div class="panel-card">
+                <div class="panel-card__title">Executive Summary</div>
+
+                <p>
+                  {{ overviewText() }}
+                </p>
+
+                <div class="chip-row"></div>
+              </div>
+
+              <div class="panel-card">
+                <div class="panel-card__title">Top Affected Pages</div>
+
+                <div class="list-stack">
+                  @for (page of pagesList(); track page.name) {
+                    <div class="list-row">
+                      <div>
+                        <div class="list-row__title">
+                          {{ page.name }}
+                        </div>
+
+                        <div class="list-row__meta">
+                          {{ page.requests }} Requests • {{ page.status }}
+                        </div>
+                      </div>
+
+                      <span class="risk-pill">
+                        {{ page.risk }}
+                      </span>
+                    </div>
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="Pages">
+          <div class="tab-content">
+            <div class="list-stack">
+              @for (page of pagesList(); track page.name) {
+                <div class="list-row list-row--panel">
+                  <div>
+                    <div class="list-row__title">
+                      {{ page.name }}
+                    </div>
+
+                    <div class="list-row__meta">
+                      {{ page.status }}
+                    </div>
+                  </div>
+
+                  <div class="list-row__meta">{{ page.requests }} Requests</div>
+                </div>
+              }
+            </div>
+          </div>
+        </mat-tab>
+
+        <mat-tab label="Findings">
+          <div class="tab-content">
+            @if (findings().length === 0) {
+              <div class="panel-card">
+                <div class="panel-card__title">No Security Findings</div>
+
+                <p>The scan completed successfully and no findings were reported.</p>
+              </div>
+            } @else {
+              <div class="list-stack">
+                @for (finding of findings(); track finding.id) {
+                  <div class="finding-card">
+                    <div class="finding-card__head">
+                      <div>
+                        <div class="list-row__title">
+                          {{ finding.title }}
+                        </div>
+
+                        <div class="list-row__meta">
+                          {{ finding.category }}
+                        </div>
+                      </div>
+
+                      <span
+                        class="risk-pill"
+                        [ngClass]="'risk-pill--' + finding.severity.toLowerCase()"
+                      >
+                        {{ finding.severity }}
+                      </span>
+                    </div>
+
+                    <p>
+                      {{ finding.description }}
+                    </p>
+
+                    <div class="list-row__meta">
+                      <strong>Recommendation:</strong>
+
+                      {{ finding.recommendation }}
+                    </div>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        </mat-tab>
+
+        <mat-tab label="Screenshots">
+          <div class="tab-content">
+            @if (screenshots().length === 0) {
+              <div class="panel-card">
+                <div class="panel-card__title">No Screenshots Captured</div>
+              </div>
+            } @else {
+              <div class="screenshot-grid">
+                @for (screenshot of screenshots(); track screenshot.title) {
+                  <div class="screenshot-card">
+                    <img
+                      class="screenshot-card__preview"
+                      [src]="'http://localhost:3000' + screenshot.url"
+                      [alt]="screenshot.page"
+                    />
+
+                    <div class="screenshot-card__title">
+                      {{ screenshot.page }}
+                    </div>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        </mat-tab>
+
+        <mat-tab label="Recommendations">
+          <div class="tab-content">
+            @if (recommendations().length === 0) {
+              <div class="panel-card">
+                <div class="panel-card__title">No Recommendations</div>
+              </div>
+            } @else {
+              <div class="list-stack">
+                @for (recommendation of recommendations(); track recommendation.title) {
+                  <div class="recommendation-card">
+                    <div class="list-row__title">
+                      {{ recommendation.title }}
+                    </div>
+
+                    <div class="list-row__meta">
+                      {{ recommendation.detail }}
+                    </div>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        </mat-tab>
+
+        <mat-tab label="Network Requests">
+          <div class="tab-content">
+            @if (networkRequests().length === 0) {
+              <div class="panel-card">
+                <div class="panel-card__title">No Network Requests Captured</div>
+              </div>
+            } @else {
+              <div class="list-stack">
+                @for (request of networkRequests(); track request.url) {
+                  <div class="list-row list-row--panel">
+                    <div>
+                      <div class="list-row__title">{{ request.method }} {{ request.url }}</div>
+
+                      <div class="list-row__meta">
+                        {{ request.resourceType }}
+                      </div>
+                    </div>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        </mat-tab>
+
+        <mat-tab label="Console Errors">
+          <div class="tab-content">
+            @if (consoleErrors().length === 0) {
+              <div class="panel-card">
+                <div class="panel-card__title">No Console Errors</div>
+              </div>
+            } @else {
+              <div class="list-stack">
+                @for (error of consoleErrors(); track error.type) {
+                  <div class="console-card">
+                    <div class="console-card__head">
+                      <div class="list-row__title">
+                        {{ error.type }}
+                      </div>
+                    </div>
+
+                    <div class="list-row__meta">
+                      {{ error.text }}
+                    </div>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card>
+  }
+</div>

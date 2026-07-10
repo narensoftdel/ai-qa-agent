@@ -1,0 +1,10 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background: var(--app-background);
+  color: var(--app-foreground);
+}
+
+.app-shell-root {
+  min-height: 100vh;
+}

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>/ — graphify tree viewer</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+      color: #333;
+    }
+    h1 {
+      margin: 20px 0 0 24px;
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: #1e3a56;
+    }
+    .controls {
+      margin: 20px 0 15px 24px;
+    }
+    button {
+      margin-right: 10px;
+      padding: 8px 18px;
+      background: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.2s ease-in-out;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    button:active {
+      background: #004085;
+    }
+    #tree-container {
+      width: calc(100vw - 48px); /* Adjust for body margin/padding */
+      height: 85vh;
+      overflow: auto;
+      border-radius: 8px;
+      background: #fff;
+      margin-left: 24px;
+      margin-right: 24px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      border: 1px solid #ddd;
+    }
+    svg {
+      background: #fff;
+      border-radius: 8px;
+      display: block; /* Important for D3 */
+    }
+    .node circle {
+      stroke-width: 2.5px;
+    }
+    .node text { /* Base style for the <text> container */
+      font: 13px 'Segoe UI', sans-serif;
+      paint-order: stroke fill; /* Ensures text is readable over lines */
+      stroke: #fff; /* White halo */
+      stroke-width: 3px; /* Halo thickness */
+      stroke-linejoin: round;
+      stroke-opacity: 0.85; /* Halo opacity */
+    }
+    .link {
+      fill: none;
+      stroke-opacity: 0.7;
+      stroke-width: 2px;
+    }
+  </style>
+</head>
+<body>
+  <h1>/ — Knowledge Graph</h1>
+  <div class="controls">
+    <button onclick="expandAll()">Expand All</button>
+    <button onclick="collapseAll()">Collapse All</button>
+    <button onclick="resetView()">Reset View</button>
+  </div>
+  <div id="tree-container">
+    <svg id="tree-svg" width="6000" height="8000"></svg>
+  </div>
+
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script>
+    const initialJsonData = {"name":"/","total_count":354,"children":[{"name":"angular.json","total_count":47,"children":[{"name":"$schema","total_count":1,"children":[]},{"name":"@schematics/angular:component","total_count":1,"children":[]},{"name":"ai-security-agent","total_count":1,"children":[]},{"name":"analytics","total_count":1,"children":[]},{"name":"architect","total_count":1,"children":[]},{"name":"assets","total_count":1,"children":[]},{"name":"browser","total_count":1,"children":[]},{"name":"budgets","total_count":1,"children":[]},{"name":"build","total_count":1,"children":[]},{"name":"builder","total_count":1,"children":[]},{"name":"builder","total_count":1,"children":[]},{"name":"builder","total_count":1,"children":[]},{"name":"builder","total_count":1,"children":[]},{"name":"buildTarget","total_count":1,"children":[]},{"name":"buildTarget","total_count":1,"children":[]},{"name":"cli","total_count":1,"children":[]},{"name":"configurations","total_count":1,"children":[]},{"name":"configurations","total_count":1,"children":[]},{"name":"defaultConfiguration","total_count":1,"children":[]},{"name":"defaultConfiguration","total_count":1,"children":[]},{"name":"development","total_count":1,"children":[]},{"name":"extract-i18n","total_count":1,"children":[]},{"name":"extractLicenses","total_count":1,"children":[]},{"name":"index","total_count":1,"children":[]},{"name":"inlineStyleLanguage","total_count":1,"children":[]},{"name":"newProjectRoot","total_count":1,"children":[]},{"name":"optimization","total_count":1,"children":[]},{"name":"options","total_count":1,"children":[]},{"name":"options","total_count":1,"children":[]},{"name":"outputHashing","total_count":1,"children":[]},{"name":"outputPath","total_count":1,"children":[]},{"name":"polyfills","total_count":1,"children":[]},{"name":"prefix","total_count":1,"children":[]},{"name":"production","total_count":1,"children":[]},{"name":"projects","total_count":1,"children":[]},{"name":"projectType","total_count":1,"children":[]},{"name":"root","total_count":1,"children":[]},{"name":"schematics","total_count":1,"children":[]},{"name":"scripts","total_count":1,"children":[]},{"name":"serve","total_count":1,"children":[]},{"name":"sourceMap","total_count":1,"children":[]},{"name":"sourceRoot","total_count":1,"children":[]},{"name":"style","total_count":1,"children":[]},{"name":"styles","total_count":1,"children":[]},{"name":"test","total_count":1,"children":[]},{"name":"tsConfig","total_count":1,"children":[]},{"name":"version","total_count":1,"children":[]}]},{"name":"backend","total_count":58,"children":[{"name":"package.json","total_count":33,"children":[{"name":"@types/compression","total_count":1,"children":[]},{"name":"@types/cors","total_count":1,"children":[]},{"name":"@types/express","total_count":1,"children":[]},{"name":"@types/node","total_count":1,"children":[]},{"name":"author","total_count":1,"children":[]},{"name":"build","total_count":1,"children":[]},{"name":"compression","total_count":1,"children":[]},{"name":"cors","total_count":1,"children":[]},{"name":"dependencies","total_count":1,"children":[]},{"name":"description","total_count":1,"children":[]},{"name":"dev","total_count":1,"children":[]},{"name":"devDependencies","total_count":1,"children":[]},{"name":"dotenv","total_count":1,"children":[]},{"name":"eslint","total_count":1,"children":[]},{"name":"express","total_count":1,"children":[]},{"name":"helmet","total_count":1,"children":[]},{"name":"keywords","total_count":1,"children":[]},{"name":"license","total_count":1,"children":[]},{"name":"main","total_count":1,"children":[]},{"name":"name","total_count":1,"children":[]},{"name":"nodemon","total_count":1,"children":[]},{"name":"openai","total_count":1,"children":[]},{"name":"playwright","total_count":1,"children":[]},{"name":"prettier","total_count":1,"children":[]},{"name":"scripts","total_count":1,"children":[]},{"name":"start","total_count":1,"children":[]},{"name":"ts-node","total_count":1,"children":[]},{"name":"tsx","total_count":1,"children":[]},{"name":"typescript","total_count":1,"children":[]},{"name":"uuid","total_count":1,"children":[]},{"name":"version","total_count":1,"children":[]},{"name":"winston","total_count":1,"children":[]},{"name":"ws","total_count":1,"children":[]}]},{"name":"src","total_count":15,"children":[{"name":"agent","total_count":2,"children":[{"name":"agent.manager.ts","total_count":2,"children":[{"name":".start()","total_count":1,"children":[]},{"name":"AgentManager","total_count":1,"children":[]}]}]},{"name":"app.ts","total_count":1,"children":[{"name":"app","total_count":1,"children":[]}]},{"name":"config","total_count":2,"children":[{"name":"env.ts","total_count":1,"children":[{"name":"env","total_count":1,"children":[]}]},{"name":"logger.ts","total_count":1,"children":[{"name":"logger","total_count":1,"children":[]}]}]},{"name":"controllers","total_count":2,"children":[{"name":"scanner.controller.ts","total_count":2,"children":[{"name":"getScan()","total_count":1,"children":[]},{"name":"startScan()","total_count":1,"children":[]}]}]},{"name":"models","total_count":1,"children":[{"name":"scan.model.ts","total_count":1,"children":[{"name":"Scan","total_count":1,"children":[]}]}]},{"name":"routes","total_count":2,"children":[{"name":"index.ts","total_count":1,"children":[{"name":"router","total_count":1,"children":[]}]},{"name":"scanner.routes.ts","total_count":1,"children":[{"name":"router","total_count":1,"children":[]}]}]},{"name":"services","total_count":4,"children":[{"name":"scanner.service.ts","total_count":4,"children":[{"name":".createScan()","total_count":1,"children":[]},{"name":".getScan()","total_count":1,"children":[]},{"name":".updateScan()","total_count":1,"children":[]},{"name":"ScannerService","total_count":1,"children":[]}]}]},{"name":"server.ts","total_count":1,"children":[]}]},{"name":"tsconfig.json","total_count":10,"children":[{"name":"compilerOptions","total_count":1,"children":[]},{"name":"esModuleInterop","total_count":1,"children":[]},{"name":"module","total_count":1,"children":[]},{"name":"moduleResolution","total_count":1,"children":[]},{"name":"outDir","total_count":1,"children":[]},{"name":"rootDir","total_count":1,"children":[]},{"name":"skipLibCheck","total_count":1,"children":[]},{"name":"strict","total_count":1,"children":[]},{"name":"target","total_count":1,"children":[]},{"name":"types","total_count":1,"children":[]}]}]},{"name":"package.json","total_count":35,"children":[{"name":"@angular-devkit/build-angular","total_count":1,"children":[]},{"name":"@angular/animations","total_count":1,"children":[]},{"name":"@angular/cdk","total_count":1,"children":[]},{"name":"@angular/cli","total_count":1,"children":[]},{"name":"@angular/common","total_count":1,"children":[]},{"name":"@angular/compiler","total_count":1,"children":[]},{"name":"@angular/compiler-cli","total_count":1,"children":[]},{"name":"@angular/core","total_count":1,"children":[]},{"name":"@angular/forms","total_count":1,"children":[]},{"name":"@angular/material","total_count":1,"children":[]},{"name":"@angular/platform-browser","total_count":1,"children":[]},{"name":"@angular/platform-browser-dynamic","total_count":1,"children":[]},{"name":"@angular/router","total_count":1,"children":[]},{"name":"@types/jasmine","total_count":1,"children":[]},{"name":"build","total_count":1,"children":[]},{"name":"dependencies","total_count":1,"children":[]},{"name":"devDependencies","total_count":1,"children":[]},{"name":"jasmine-core","total_count":1,"children":[]},{"name":"karma","total_count":1,"children":[]},{"name":"karma-chrome-launcher","total_count":1,"children":[]},{"name":"karma-coverage","total_count":1,"children":[]},{"name":"karma-jasmine","total_count":1,"children":[]},{"name":"karma-jasmine-html-reporter","total_count":1,"children":[]},{"name":"name","total_count":1,"children":[]},{"name":"ng","total_count":1,"children":[]},{"name":"private","total_count":1,"children":[]},{"name":"rxjs","total_count":1,"children":[]},{"name":"scripts","total_count":1,"children":[]},{"name":"start","total_count":1,"children":[]},{"name":"test","total_count":1,"children":[]},{"name":"tslib","total_count":1,"children":[]},{"name":"typescript","total_count":1,"children":[]},{"name":"version","total_count":1,"children":[]},{"name":"watch","total_count":1,"children":[]},{"name":"zone.js","total_count":1,"children":[]}]},{"name":"README.md","total_count":8,"children":[{"name":"Additional Resources","total_count":1,"children":[]},{"name":"AiSecurityAgent","total_count":1,"children":[]},{"name":"Building","total_count":1,"children":[]},{"name":"Code scaffolding","total_count":1,"children":[]},{"name":"Development server","total_count":1,"children":[]},{"name":"README.md","total_count":1,"children":[]},{"name":"Running end-to-end tests","total_count":1,"children":[]},{"name":"Running unit tests","total_count":1,"children":[]}]},{"name":"src","total_count":206,"children":[{"name":"app","total_count":205,"children":[{"name":"app.component.ts","total_count":1,"children":[{"name":"AppComponent","total_count":1,"children":[]}]},{"name":"app.config.ts","total_count":1,"children":[{"name":"appConfig","total_count":1,"children":[]}]},{"name":"app.routes.ts","total_count":1,"children":[{"name":"routes","total_count":1,"children":[]}]},{"name":"core","total_count":139,"children":[{"name":"constants","total_count":2,"children":[{"name":"navigation.ts","total_count":2,"children":[{"name":"NAV_ITEMS","total_count":1,"children":[]},{"name":"NavItem","total_count":1,"children":[]}]}]},{"name":"mock-data","total_count":34,"children":[{"name":"api-endpoints.mock.ts","total_count":5,"children":[{"name":"API_GROUPS","total_count":1,"children":[]},{"name":"ApiGroup","total_count":1,"children":[]},{"name":"contentTypeFor()","total_count":1,"children":[]},{"name":"EndpointRow","total_count":1,"children":[]},{"name":"MOCK_API_ENDPOINTS","total_count":1,"children":[]}]},{"name":"console-logs.mock.ts","total_count":4,"children":[{"name":"addMinutes()","total_count":1,"children":[]},{"name":"LOG_TEMPLATES","total_count":1,"children":[]},{"name":"LogTemplate","total_count":1,"children":[]},{"name":"MOCK_CONSOLE_LOGS","total_count":1,"children":[]}]},{"name":"cookies.mock.ts","total_count":5,"children":[{"name":"COOKIE_CATALOG","total_count":1,"children":[]},{"name":"CookieDefinition","total_count":1,"children":[]},{"name":"DOMAIN_BY_SCAN","total_count":1,"children":[]},{"name":"MOCK_COOKIES","total_count":1,"children":[]},{"name":"riskFor()","total_count":1,"children":[]}]},{"name":"findings.mock.ts","total_count":5,"children":[{"name":"dateOffset()","total_count":1,"children":[]},{"name":"FINDING_TEMPLATES","total_count":1,"children":[]},{"name":"FindingTemplate","total_count":1,"children":[]},{"name":"MOCK_FINDINGS","total_count":1,"children":[]},{"name":"STATUS_CYCLE","total_count":1,"children":[]}]},{"name":"pages.mock.ts","total_count":1,"children":[{"name":"MOCK_PAGES","total_count":1,"children":[]}]},{"name":"reports.mock.ts","total_count":1,"children":[{"name":"MOCK_REPORTS","total_count":1,"children":[]}]},{"name":"scans.mock.ts","total_count":6,"children":[{"name":"buildTimeline()","total_count":1,"children":[]},{"name":"MOCK_SCANS","total_count":1,"children":[]},{"name":"SCAN_IDS","total_count":1,"children":[]},{"name":"SCAN_SEEDS","total_count":1,"children":[]},{"name":"SCAN_STEP_DEFINITIONS","total_count":1,"children":[]},{"name":"ScanSeed","total_count":1,"children":[]}]},{"name":"screenshots.mock.ts","total_count":2,"children":[{"name":"MOCK_SCREENSHOTS","total_count":1,"children":[]},{"name":"viewportFor()","total_count":1,"children":[]}]},{"name":"security-headers.mock.ts","total_count":4,"children":[{"name":"HEADER_CATALOG","total_count":1,"children":[]},{"name":"HeaderDefinition","total_count":1,"children":[]},{"name":"MOCK_SECURITY_HEADERS","total_count":1,"children":[]},{"name":"statusFor()","total_count":1,"children":[]}]},{"name":"index.ts","total_count":1,"children":[]}]},{"name":"models","total_count":47,"children":[{"name":"api-endpoint.model.ts","total_count":3,"children":[{"name":"ApiEndpoint","total_count":1,"children":[]},{"name":"ApiRiskLevel","total_count":1,"children":[]},{"name":"HttpMethod","total_count":1,"children":[]}]},{"name":"console-log.model.ts","total_count":2,"children":[{"name":"ConsoleLogEntry","total_count":1,"children":[]},{"name":"ConsoleLogLevel","total_count":1,"children":[]}]},{"name":"cookie.model.ts","total_count":3,"children":[{"name":"Cookie","total_count":1,"children":[]},{"name":"CookieRiskLevel","total_count":1,"children":[]},{"name":"SameSitePolicy","total_count":1,"children":[]}]},{"name":"dashboard.model.ts","total_count":5,"children":[{"name":"DashboardStatCard","total_count":1,"children":[]},{"name":"RiskTrendPoint","total_count":1,"children":[]},{"name":"SeverityBreakdownItem","total_count":1,"children":[]},{"name":"SeverityTone","total_count":1,"children":[]},{"name":"StatCardTone","total_count":1,"children":[]}]},{"name":"finding.model.ts","total_count":5,"children":[{"name":"Finding","total_count":1,"children":[]},{"name":"FindingSeverity","total_count":1,"children":[]},{"name":"FindingSeverityCounts","total_count":1,"children":[]},{"name":"FindingSortField","total_count":1,"children":[]},{"name":"FindingStatus","total_count":1,"children":[]}]},{"name":"navigation.model.ts","total_count":2,"children":[{"name":"NavigationItem","total_count":1,"children":[]},{"name":"navigationItems","total_count":1,"children":[]}]},{"name":"notification.model.ts","total_count":2,"children":[{"name":"AppNotification","total_count":1,"children":[]},{"name":"NotificationType","total_count":1,"children":[]}]},{"name":"page.model.ts","total_count":3,"children":[{"name":"Page","total_count":1,"children":[]},{"name":"PageAuthState","total_count":1,"children":[]},{"name":"PageRiskLevel","total_count":1,"children":[]}]},{"name":"report.model.ts","total_count":5,"children":[{"name":"Report","total_count":1,"children":[]},{"name":"ReportDownload","total_count":1,"children":[]},{"name":"ReportFormat","total_count":1,"children":[]},{"name":"ReportGenerationRequest","total_count":1,"children":[]},{"name":"ReportStatus","total_count":1,"children":[]}]},{"name":"scan.model.ts","total_count":7,"children":[{"name":"Scan","total_count":1,"children":[]},{"name":"ScanAuthenticationType","total_count":1,"children":[]},{"name":"ScanBrowser","total_count":1,"children":[]},{"name":"ScanConfig","total_count":1,"children":[]},{"name":"ScanStatus","total_count":1,"children":[]},{"name":"ScanStep","total_count":1,"children":[]},{"name":"ScanStepStatus","total_count":1,"children":[]}]},{"name":"screenshot.model.ts","total_count":2,"children":[{"name":"Screenshot","total_count":1,"children":[]},{"name":"ScreenshotViewport","total_count":1,"children":[]}]},{"name":"security-header.model.ts","total_count":2,"children":[{"name":"SecurityHeader","total_count":1,"children":[]},{"name":"SecurityHeaderStatus","total_count":1,"children":[]}]},{"name":"settings.model.ts","total_count":5,"children":[{"name":"AiProvider","total_count":1,"children":[]},{"name":"AppLanguage","total_count":1,"children":[]},{"name":"AppSettings","total_count":1,"children":[]},{"name":"DefaultBrowser","total_count":1,"children":[]},{"name":"ThemePreference","total_count":1,"children":[]}]},{"name":"index.ts","total_count":1,"children":[]}]},{"name":"services","total_count":54,"children":[{"name":"dashboard.service.ts","total_count":6,"children":[{"name":".completedScanCount()","total_count":1,"children":[]},{"name":".completionRate()","total_count":1,"children":[]},{"name":".constructor()","total_count":1,"children":[]},{"name":".loadRiskTrend()","total_count":1,"children":[]},{"name":"DashboardService","total_count":1,"children":[]},{"name":"MOCK_RISK_TREND","total_count":1,"children":[]}]},{"name":"finding.service.ts","total_count":12,"children":[{"name":".compareFindings()","total_count":1,"children":[]},{"name":".constructor()","total_count":1,"children":[]},{"name":".getFindingById()","total_count":1,"children":[]},{"name":".getFindingsByScanId()","total_count":1,"children":[]},{"name":".loadFindings()","total_count":1,"children":[]},{"name":".setSearchTerm()","total_count":1,"children":[]},{"name":".setSeverityFilter()","total_count":1,"children":[]},{"name":".setSortBy()","total_count":1,"children":[]},{"name":".setStatusFilter()","total_count":1,"children":[]},{"name":".updateFindingStatus()","total_count":1,"children":[]},{"name":"FindingService","total_count":1,"children":[]},{"name":"SEVERITY_RANK","total_count":1,"children":[]}]},{"name":"notification.service.ts","total_count":10,"children":[{"name":".clearAll()","total_count":1,"children":[]},{"name":".dismiss()","total_count":1,"children":[]},{"name":".error()","total_count":1,"children":[]},{"name":".info()","total_count":1,"children":[]},{"name":".markAllAsRead()","total_count":1,"children":[]},{"name":".markAsRead()","total_count":1,"children":[]},{"name":".notify()","total_count":1,"children":[]},{"name":".success()","total_count":1,"children":[]},{"name":".warning()","total_count":1,"children":[]},{"name":"NotificationService","total_count":1,"children":[]}]},{"name":"report.service.ts","total_count":7,"children":[{"name":".constructor()","total_count":1,"children":[]},{"name":".deleteReport()","total_count":1,"children":[]},{"name":".downloadReport()","total_count":1,"children":[]},{"name":".generateReport()","total_count":1,"children":[]},{"name":".getReportById()","total_count":1,"children":[]},{"name":".loadReports()","total_count":1,"children":[]},{"name":"ReportService","total_count":1,"children":[]}]},{"name":"scanner.service.ts","total_count":6,"children":[{"name":".constructor()","total_count":1,"children":[]},{"name":".getScan()","total_count":1,"children":[]},{"name":".startPolling()","total_count":1,"children":[]},{"name":".startScan()","total_count":1,"children":[]},{"name":".stopPolling()","total_count":1,"children":[]},{"name":"ScannerService","total_count":1,"children":[]}]},{"name":"settings.service.ts","total_count":6,"children":[{"name":".persistSettings()","total_count":1,"children":[]},{"name":".readStoredSettings()","total_count":1,"children":[]},{"name":".resetSettings()","total_count":1,"children":[]},{"name":".updateSettings()","total_count":1,"children":[]},{"name":"DEFAULT_SETTINGS","total_count":1,"children":[]},{"name":"SettingsService","total_count":1,"children":[]}]},{"name":"theme.service.ts","total_count":6,"children":[{"name":".constructor()","total_count":1,"children":[]},{"name":".readStoredTheme()","total_count":1,"children":[]},{"name":".setTheme()","total_count":1,"children":[]},{"name":".toggleTheme()","total_count":1,"children":[]},{"name":"AppTheme","total_count":1,"children":[]},{"name":"ThemeService","total_count":1,"children":[]}]},{"name":"index.ts","total_count":1,"children":[]}]},{"name":"utils","total_count":2,"children":[{"name":"mock-api.util.ts","total_count":2,"children":[{"name":"simulateApiCall()","total_count":1,"children":[]},{"name":"simulateApiFailure()","total_count":1,"children":[]}]}]}]},{"name":"features","total_count":34,"children":[{"name":"about","total_count":1,"children":[{"name":"about.component.ts","total_count":1,"children":[{"name":"AboutComponent","total_count":1,"children":[]}]}]},{"name":"dashboard","total_count":5,"children":[{"name":"dashboard.component.ts","total_count":5,"children":[{"name":"DashboardComponent","total_count":1,"children":[]},{"name":"FindingItem","total_count":1,"children":[]},{"name":"ReportItem","total_count":1,"children":[]},{"name":"ScanItem","total_count":1,"children":[]},{"name":"StatCardModel","total_count":1,"children":[]}]}]},{"name":"findings","total_count":3,"children":[{"name":"findings.component.ts","total_count":3,"children":[{"name":".onPageChange()","total_count":1,"children":[]},{"name":"FindingRow","total_count":1,"children":[]},{"name":"FindingsComponent","total_count":1,"children":[]}]}]},{"name":"help","total_count":1,"children":[{"name":"help.component.ts","total_count":1,"children":[{"name":"HelpComponent","total_count":1,"children":[]}]}]},{"name":"operations","total_count":1,"children":[{"name":"operations.component.ts","total_count":1,"children":[{"name":"OperationsComponent","total_count":1,"children":[]}]}]},{"name":"page-details","total_count":1,"children":[{"name":"page-details.component.ts","total_count":1,"children":[{"name":"PageDetailsComponent","total_count":1,"children":[]}]}]},{"name":"reports","total_count":3,"children":[{"name":"reports.component.ts","total_count":3,"children":[{"name":".onPageChange()","total_count":1,"children":[]},{"name":"ReportItem","total_count":1,"children":[]},{"name":"ReportsComponent","total_count":1,"children":[]}]}]},{"name":"scan","total_count":17,"children":[{"name":"new-scan","total_count":8,"children":[{"name":"new-scan.component.ts","total_count":8,"children":[{"name":".constructor()","total_count":1,"children":[]},{"name":".createTimeline()","total_count":1,"children":[]},{"name":".ngOnDestroy()","total_count":1,"children":[]},{"name":".resetForm()","total_count":1,"children":[]},{"name":".startPolling()","total_count":1,"children":[]},{"name":".submitScan()","total_count":1,"children":[]},{"name":"NewScanComponent","total_count":1,"children":[]},{"name":"ProgressStep","total_count":1,"children":[]}]}]},{"name":"scan-history","total_count":1,"children":[{"name":"scan-history.component.ts","total_count":1,"children":[{"name":"ScanHistoryComponent","total_count":1,"children":[]}]}]},{"name":"scan-result","total_count":8,"children":[{"name":"scan-result.component.ts","total_count":7,"children":[{"name":"ConsoleErrorSummary","total_count":1,"children":[]},{"name":"FindingSummary","total_count":1,"children":[]},{"name":"NetworkRequestSummary","total_count":1,"children":[]},{"name":"PageSummary","total_count":1,"children":[]},{"name":"RecommendationSummary","total_count":1,"children":[]},{"name":"ScanResultComponent","total_count":1,"children":[]},{"name":"ScreenshotSummary","total_count":1,"children":[]}]},{"name":"scan-result.component.spec.ts","total_count":1,"children":[]}]}]},{"name":"settings","total_count":1,"children":[{"name":"settings.component.ts","total_count":1,"children":[{"name":"SettingsComponent","total_count":1,"children":[]}]}]},{"name":"threats","total_count":1,"children":[{"name":"threats.component.ts","total_count":1,"children":[{"name":"ThreatsComponent","total_count":1,"children":[]}]}]}]},{"name":"layout","total_count":12,"children":[{"name":"components","total_count":12,"children":[{"name":"app-breadcrumb","total_count":1,"children":[{"name":"app-breadcrumb.component.ts","total_count":1,"children":[{"name":"AppBreadcrumbComponent","total_count":1,"children":[]}]}]},{"name":"app-shell","total_count":6,"children":[{"name":"app-shell.component.ts","total_count":6,"children":[{"name":".closeMenu()","total_count":1,"children":[]},{"name":".getBreadcrumbs()","total_count":1,"children":[]},{"name":".ngOnInit()","total_count":1,"children":[]},{"name":".toggleMenu()","total_count":1,"children":[]},{"name":".toggleTheme()","total_count":1,"children":[]},{"name":"AppShellComponent","total_count":1,"children":[]}]}]},{"name":"app-sidebar","total_count":2,"children":[{"name":"app-sidebar.component.ts","total_count":2,"children":[{"name":"AppSidebarComponent","total_count":1,"children":[]},{"name":"SidebarNavItem","total_count":1,"children":[]}]}]},{"name":"app-toolbar","total_count":3,"children":[{"name":"app-toolbar.component.ts","total_count":3,"children":[{"name":".onMenuToggle()","total_count":1,"children":[]},{"name":".onThemeToggle()","total_count":1,"children":[]},{"name":"AppToolbarComponent","total_count":1,"children":[]}]}]}]}]},{"name":"shared","total_count":16,"children":[{"name":"animations","total_count":1,"children":[{"name":"route-animations.ts","total_count":1,"children":[{"name":"routeAnimations","total_count":1,"children":[]}]}]},{"name":"components","total_count":15,"children":[{"name":"confirmation-dialog.component.ts","total_count":1,"children":[{"name":"ConfirmationDialogComponent","total_count":1,"children":[]}]},{"name":"empty-state.component.ts","total_count":1,"children":[{"name":"EmptyStateComponent","total_count":1,"children":[]}]},{"name":"finding-card.component.ts","total_count":1,"children":[{"name":"FindingCardComponent","total_count":1,"children":[]}]},{"name":"loading-spinner.component.ts","total_count":1,"children":[{"name":"LoadingSpinnerComponent","total_count":1,"children":[]}]},{"name":"page-header","total_count":1,"children":[{"name":"page-header.component.ts","total_count":1,"children":[{"name":"PageHeaderComponent","total_count":1,"children":[]}]}]},{"name":"progress-card.component.ts","total_count":1,"children":[{"name":"ProgressCardComponent","total_count":1,"children":[]}]},{"name":"risk-card.component.ts","total_count":1,"children":[{"name":"RiskCardComponent","total_count":1,"children":[]}]},{"name":"scan-card.component.ts","total_count":1,"children":[{"name":"ScanCardComponent","total_count":1,"children":[]}]},{"name":"severity-badge.component.ts","total_count":1,"children":[{"name":"SeverityBadgeComponent","total_count":1,"children":[]}]},{"name":"skeleton-loader.component.ts","total_count":2,"children":[{"name":".getBlockItems()","total_count":1,"children":[]},{"name":"SkeletonLoaderComponent","total_count":1,"children":[]}]},{"name":"statistic-card.component.ts","total_count":1,"children":[{"name":"StatisticCardComponent","total_count":1,"children":[]}]},{"name":"timeline.component.ts","total_count":1,"children":[{"name":"TimelineComponent","total_count":1,"children":[]}]},{"name":"toast.component.ts","total_count":1,"children":[{"name":"ToastComponent","total_count":1,"children":[]}]},{"name":"index.ts","total_count":1,"children":[]}]}]},{"name":"app.component.spec.ts","total_count":1,"children":[]}]},{"name":"main.ts","total_count":1,"children":[]}]}]};
+
+    function transformData(jsonData) {
+        // Helper function to recursively build the children structure
+        function processNode(node, parentL1StageName) {
+            let displayName = node.name;
+            // Append total_count if it exists and is not already in the name
+            if (node.total_count !== undefined) {
+                if (!/\(Total Count: \d+\)$/.test(displayName)) {
+                    displayName += ` (Total Count: ${node.total_count})`;
+                }
+            }
+
+            const newNode = { name: displayName };
+
+            if (parentL1StageName === "Root") {
+                 newNode.originalStageName = node.name;
+            } else {
+                newNode.originalStageName = parentL1StageName;
+            }
+
+            if (node.children && node.children.length > 0) {
+                const stageNameToPass = (parentL1StageName === "Root") ? node.name : parentL1StageName;
+                newNode.children = node.children.map(child => processNode(child, stageNameToPass));
+            }
+
+            return newNode;
+        }
+
+        let rootDisplayName = jsonData.name;
+        if (jsonData.total_count !== undefined && !/\(Total Count: \d+\)$/.test(rootDisplayName)) {
+            rootDisplayName += ` (Total Count: ${jsonData.total_count})`;
+        }
+
+        return {
+            name: rootDisplayName,
+            originalStageName: "Root",
+            children: (jsonData.children || []).map(child => processNode(child, "Root"))
+        };
+    }
+
+    const treeData = transformData(initialJsonData);
+
+    // Auto-populated phaseColors: every depth-1 child of the root gets
+    // a stable colour from a bigger palette so all top-level dirs are
+    // distinguishable.
+    const PALETTE = [
+      ["#3498DB","#2980B9","#AED6F1"], ["#2ECC71","#27AE60","#A9DFBF"],
+      ["#E74C3C","#C0392B","#F5B7B1"], ["#9B59B6","#8E44AD","#D7BDE2"],
+      ["#F39C12","#D68910","#FAD7A0"], ["#1ABC9C","#117864","#A2D9CE"],
+      ["#34495E","#1B2631","#ABB2B9"], ["#E67E22","#BA4A00","#F5CBA7"],
+      ["#16A085","#0E6655","#A2D9CE"], ["#D35400","#A04000","#EDBB99"],
+      ["#7F8C8D","#566573","#D5DBDB"], ["#C0392B","#7B241C","#F5B7B1"],
+      ["#2E86C1","#1B4F72","#A9CCE3"], ["#28B463","#196F3D","#A9DFBF"],
+      ["#AF7AC5","#6C3483","#D2B4DE"],
+    ];
+    const phaseColors = { "Root": { fill: "#4A4A4A", stroke: "#333333", collapsedFill: "#6C757D" },
+                          "Default": { fill: "#BDC3C7", stroke: "#95A5A6", collapsedFill: "#ECF0F1" } };
+    (initialJsonData.children || []).forEach((c, i) => {
+      const pal = PALETTE[i % PALETTE.length];
+      phaseColors[c.name] = { fill: pal[0], stroke: pal[1], collapsedFill: pal[2] };
+    });
+
+    const levelSpecificPalettes = {
+      0: { fill: "#4A4A4A", stroke: "#333333", collapsedFill: "#6C757D" },
+      2: { fill: "#6ab04c", stroke: "#508a38", collapsedFill: "#a3d391" },
+      3: { fill: "#f0932b", stroke: "#d0730f", collapsedFill: "#f6c07e" },
+      4: { fill: "#be2edd", stroke: "#a01cb3", collapsedFill: "#e08bf2" },
+      5: { fill: "#00a8ff", stroke: "#007ac1", collapsedFill: "#74d2ff" },
+      6: { fill: "#e55039", stroke: "#c23620", collapsedFill: "#f09a8d" },
+      default: { fill: "#747d8c", stroke: "#57606f", collapsedFill: "#a4b0be" }
+    };
+
+    const svgElement = d3.select("#tree-svg");
+    const initialSvgWidth = +svgElement.attr("width");
+    const initialSvgHeight = +svgElement.attr("height");
+    const margin = { top: 40, right: 120, bottom: 80, left: 450 };
+    let width = initialSvgWidth - margin.left - margin.right;
+    let height = initialSvgHeight - margin.top - margin.bottom;
+    const duration = 500;
+    let nodeCounter = 0;
+    const g = svgElement.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+    const treemap = d3.tree().nodeSize([40, 0]);
+    let rootNode = d3.hierarchy(treeData, d => d.children);
+    rootNode.x0 = 0;
+    rootNode.y0 = 0;
+
+    if (rootNode.children) {
+      rootNode.children.forEach(d_child => {
+        if (d_child.children) { collapseBranch(d_child); }
+      });
+    }
+    updateTree(rootNode);
+
+    function collapseBranch(d) { if (d.children) { d._children = d.children; d._children.forEach(collapseBranch); d.children = null; } }
+    function expandBranch(d) { if (d._children) { d.children = d._children; d._children = null; } if (d.children) { d.children.forEach(expandBranch); } }
+    window.expandAll = () => { expandBranch(rootNode); updateTree(rootNode); };
+    window.collapseAll = () => { if (rootNode.children) { rootNode.children.forEach(collapseBranch); } updateTree(rootNode); };
+    window.resetView = () => { if (rootNode.children) { rootNode.children.forEach(d_child => { if (d_child.children || d_child._children) { collapseBranch(d_child); } }); } if (rootNode._children && !rootNode.children) { rootNode.children = rootNode._children; rootNode._children = null; } updateTree(rootNode); };
+
+    function updateTree(source) {
+      const treeLayoutData = treemap(rootNode);
+      let nodes = treeLayoutData.descendants();
+      let links = treeLayoutData.descendants().slice(1);
+
+      let minX = 0;
+      let maxX = 0;
+      if (nodes.length > 0) {
+        minX = d3.min(nodes, d => d.x);
+        maxX = d3.max(nodes, d => d.x);
+      }
+
+      let neededHeight = Math.max(initialSvgHeight, maxX - minX + margin.top + margin.bottom + 100);
+      svgElement.transition().duration(duration / 2).attr("height", neededHeight);
+      g.transition().duration(duration / 2).attr("transform", `translate(${margin.left},${margin.top - minX + 40})`);
+
+      nodes.forEach(d => { d.y = d.depth * 400; }); // Adjust horizontal separation if needed
+
+      const node = g.selectAll('g.node').data(nodes, d => d.id || (d.id = ++nodeCounter));
+      const nodeEnter = node.enter().append('g')
+        .attr('class', d => "node" + (d.children || d._children ? " node--internal" : " node--leaf") + (d._children ? " _children" : ""))
+        .attr('transform', d => `translate(${source.y0},${source.x0})`)
+        .on('click', (event, d) => { if (d.children) { d._children = d.children; d.children = null; } else if (d._children) { d.children = d._children; d._children = null; } updateTree(d); })
+        .style('cursor', d => (d.children || d._children) ? 'pointer' : 'default');
+
+      nodeEnter.append('circle').attr('r', 1e-6);
+
+      nodeEnter.append('text')
+        .attr('dy', '.35em')
+        .attr('x', d => d.children || d._children ? -14 : 14)
+        .attr('text-anchor', d => d.children || d._children ? 'end' : 'start')
+        .style("fill-opacity", 1e-6)
+        .call(wrapText, 380);
+
+      const nodeUpdate = nodeEnter.merge(node);
+      nodeUpdate.transition().duration(duration)
+        .attr('transform', d => `translate(${d.y},${d.x})`)
+        .attr('class', d => "node" + (d.children ? " node--internal" : " node--leaf") + (d._children ? " node--internal _children" : ""));
+
+      nodeUpdate.select('circle').attr('r', 8.5)
+        .style('fill', d => {
+            let palette;
+            if (d.depth === 0) {
+                palette = levelSpecificPalettes[0];
+            } else if (d.depth === 1) {
+                palette = phaseColors[d.data.originalStageName] || phaseColors.Default;
+            } else {
+                palette = levelSpecificPalettes[d.depth] || levelSpecificPalettes.default;
+            }
+            if (d._children) return palette.collapsedFill;
+            if (d.children) return palette.fill;
+            return "#fff";
+        })
+        .style('stroke', d => {
+            let palette;
+            if (d.depth === 0) {
+                palette = levelSpecificPalettes[0];
+            } else if (d.depth === 1) {
+                palette = phaseColors[d.data.originalStageName] || phaseColors.Default;
+            } else {
+                palette = levelSpecificPalettes[d.depth] || levelSpecificPalettes.default;
+            }
+            return palette.stroke;
+        });
+      nodeUpdate.select('text').style("fill-opacity", 1).call(wrapText, 380);
+
+      const nodeExit = node.exit().transition().duration(duration).attr('transform', d => `translate(${source.y},${source.x})`).remove();
+      nodeExit.select('circle').attr('r', 1e-6);
+      nodeExit.select('text').style('fill-opacity', 1e-6);
+
+      const link = g.selectAll('path.link').data(links, d => d.id);
+      const linkEnter = link.enter().insert('path', "g").attr('class', 'link').attr('d', d => { const o = { x: source.x0, y: source.y0 }; return diagonal(o, o); });
+
+      linkEnter.merge(link).transition().duration(duration).attr('d', d => diagonal(d, d.parent))
+        .style('stroke', d => {
+            const sourceNode = d.parent;
+            if (!sourceNode) return phaseColors.Default.stroke;
+            const l1AncestorName = sourceNode.data.originalStageName;
+            const colorPalette = phaseColors[l1AncestorName] || phaseColors.Default;
+            return colorPalette.stroke;
+        });
+      link.exit().transition().duration(duration).attr('d', d => { const o = { x: source.x, y: source.y }; return diagonal(o, o); }).remove();
+      nodes.forEach(d => { d.x0 = d.x; d.y0 = d.y; });
+    }
+
+    function diagonal(s, d) { return `M ${s.y} ${s.x} C ${(s.y + d.y) / 2} ${s.x}, ${(s.y + d.y) / 2} ${d.x}, ${d.y} ${d.x}`; }
+
+    function wrapText(textElements, maxWidth) {
+        const textPartColors = {
+            name: '#343a40',
+            count: '#0056b3'
+        };
+        const countRegex = /(\s\(Total Count: \d+\))$/;
+
+        textElements.each(function () {
+            const textD3 = d3.select(this);
+            const originalNodeText = textD3.datum().data.name;
+            const x = parseFloat(textD3.attr("x") || 0);
+            const initialDy = textD3.attr("dy");
+            const textAnchor = textD3.attr("text-anchor");
+            const lineHeight = 1.1;
+
+            textD3.text(null);
+
+            let namePart = originalNodeText;
+            let countPartText = "";
+
+            const countMatch = originalNodeText.match(countRegex);
+            if (countMatch && originalNodeText.endsWith(countMatch[0])) {
+                namePart = originalNodeText.substring(0, originalNodeText.length - countMatch[0].length).trim();
+                countPartText = countMatch[0].trim();
+            }
+
+            const tokens = [];
+            namePart.split(/\s+/).filter(Boolean).forEach(word => {
+                tokens.push({ text: word, type: 'name' });
+            });
+            if (countPartText) {
+                tokens.push({ text: countPartText, type: 'count' });
+            }
+
+            if (tokens.length === 0 && originalNodeText) {
+                tokens.push({ text: originalNodeText, type: 'name' });
+            }
+
+            let currentTspan = textD3.append("tspan").attr("x", x).attr("dy", initialDy);
+            if (textAnchor === "end") currentTspan.attr("text-anchor", "end");
+
+            let lineTokens = [];
+
+            for (let i = 0; i < tokens.length; i++) {
+                const tokenObj = tokens[i];
+
+                lineTokens.push(tokenObj);
+                currentTspan.text(lineTokens.map(t => t.text).join(" "));
+
+                if (currentTspan.node().getComputedTextLength() > maxWidth && lineTokens.length > 1) {
+                    lineTokens.pop();
+
+                    currentTspan.text(null);
+                    lineTokens.forEach((prevToken, idx) => {
+                        currentTspan.append("tspan")
+                            .text((idx > 0 ? " " : "") + prevToken.text)
+                            .style("fill", textPartColors[prevToken.type] || textPartColors.name)
+                            .style("font-weight", prevToken.type === 'count' ? "bold" : "normal");
+                    });
+
+                    lineTokens = [tokenObj];
+                    currentTspan = textD3.append("tspan").attr("x", x).attr("dy", lineHeight + "em");
+                    if (textAnchor === "end") currentTspan.attr("text-anchor", "end");
+                }
+            }
+
+            currentTspan.text(null);
+            lineTokens.forEach((token, idx) => {
+                currentTspan.append("tspan")
+                    .text((idx > 0 ? " " : "") + token.text)
+                    .style("fill", textPartColors[token.type] || textPartColors.name)
+                    .style("font-weight", token.type === 'count' ? "bold" : "normal");
+            });
+
+            if (textD3.selectAll("tspan > tspan").empty() && textD3.select("tspan").text().length === 0 && originalNodeText) {
+                let t = textD3.select("tspan");
+                let displayText = originalNodeText;
+                t.text(displayText).style("fill", textPartColors.name);
+                if (t.node() && t.node().getComputedTextLength() > maxWidth && displayText.length > 20) {
+                    let estimatedChars = Math.floor(maxWidth / (t.node().getComputedTextLength()/displayText.length) );
+                    displayText = displayText.substring(0, Math.max(0, estimatedChars - 3)) + "...";
+                    t.text(displayText);
+                }
+            }
+        });
+    }
+  </script>
+</body>
+</html>

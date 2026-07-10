@@ -1,0 +1,10 @@
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  @for (item of items; track item.label; let isLast = $last) {
+    <span class="breadcrumb__item">
+      <span>{{ item.label }}</span>
+      @if (!isLast) {
+        <mat-icon>chevron_right</mat-icon>
+      }
+    </span>
+  }
+</nav>

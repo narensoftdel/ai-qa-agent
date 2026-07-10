@@ -1,0 +1,61 @@
+.shell {
+  min-height: 100vh;
+  background: var(--app-background);
+}
+
+.shell__sidenav {
+  width: 280px;
+  border: none;
+}
+
+.shell__content-panel {
+  background: linear-gradient(180deg, rgba(248, 250, 252, 0.86), rgba(240, 244, 253, 0.92));
+}
+
+:host-context(html.dark-theme) .shell__content-panel {
+  background: linear-gradient(180deg, rgba(7, 17, 31, 0.98), rgba(10, 18, 32, 0.98));
+}
+
+.shell__page {
+  padding: 1.25rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.shell__page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.8rem 0 0.3rem;
+}
+
+.shell__page-header-actions {
+  display: flex;
+  gap: 0.65rem;
+}
+
+.shell__content {
+  display: grid;
+  gap: 1.25rem;
+}
+
+@media (max-width: 900px) {
+  .shell__sidenav {
+    width: min(84vw, 290px);
+  }
+
+  .shell__page {
+    padding: 1rem;
+  }
+
+  .shell__page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .shell__page-header-actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+}
