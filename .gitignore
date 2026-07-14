@@ -1,12 +1,14 @@
 # See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
 
 # Compiled output
+/graphify-out
 /dist
 /tmp
 /out-tsc
 /bazel-out
 /.claude
 /backend/node_modules
+/backend/.graphify-out
 
 # Node
 /node_modules
