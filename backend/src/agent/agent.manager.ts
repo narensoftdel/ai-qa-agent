@@ -11,13 +11,29 @@ import { storageService } from '../playwright/storage.service.js';
 import { headersCheck } from '../security/headers.check.js';
 import { cookiesCheck } from '../security/cookies.check.js';
 import { formsCheck } from '../security/forms.check.js';
+import { runtimeCheck } from '../security/runtime.check.js';
 import { SecurityFinding } from '../security/security.types.js';
+import { CHECK_CATALOG } from '../security/check-catalog.js';
+
+import { pageContextService, PageContext } from '../playwright/page-context.service.js';
 
 import { reportService } from '../reports/report.service.js';
 
 import { logger } from '../config/logger.js';
 import { aiService } from '../ai/ai.service.js';
 import { crawlerService } from '../services/crawler.service.js';
+import { settingsService } from '../services/settings.service.js';
+
+// Finding categories produced by the runtime check, used to group
+// findings back into runtime.json for the artifact readers.
+const runtimeCheckCategories = new Set([
+  'Console Errors',
+  'JavaScript Errors',
+  'Broken Links',
+  'API / HTTP Status',
+  'Mixed Content',
+  'Sensitive Data Storage'
+]);
 
 export class AgentManager {
   async start(scanId: string): Promise<void> {
@@ -29,6 +45,20 @@ export class AgentManager {
     }
 
     let browserSession: any = null;
+
+    // Resolve enabled checks from global settings.
+    const appSettings = settingsService.get();
+
+    const enabledChecks = new Set(appSettings.enabledChecks);
+
+    const enabledAiChecks = CHECK_CATALOG.filter(
+      check => check.category === 'category2' && enabledChecks.has(check.id)
+    ).map(check => check.id);
+
+    const runAiChecks = appSettings.aiEnabled && enabledAiChecks.length > 0;
+
+    // Warnings surfaced to the report (e.g. AI skipped).
+    const warnings: string[] = [];
 
     try {
       //--------------------------------------------------
@@ -130,9 +160,15 @@ export class AgentManager {
 
       const formFindings: SecurityFinding[] = [];
 
+      const aiFindings: SecurityFinding[] = [];
+
+      const pageContexts: PageContext[] = [];
+
       const screenshots: Array<{ url: string; path: string }> = [];
 
       let firstScreenshot = '';
+
+      let aiSkipped = false;
 
       for (let index = 0; index < pages.length; index++) {
         const target = pages[index];
@@ -159,6 +195,23 @@ export class AgentManager {
 
           formFindings.push(...pageForms);
 
+          // Snapshot page content for the storage-secret runtime check
+          // and the AI (Category 2) review.
+          const context = await pageContextService.capture(browserSession.session);
+
+          pageContexts.push(context);
+
+          // Category 2 — AI reasoning over this page, if enabled.
+          if (runAiChecks) {
+            const result = await aiService.analyzePage(context, enabledAiChecks);
+
+            if (result.skipped) {
+              aiSkipped = true;
+            } else {
+              aiFindings.push(...result.findings);
+            }
+          }
+
           const screenshotPath = await screenshotService.capture(
             browserSession.session,
             `page-${index}`
@@ -181,6 +234,12 @@ export class AgentManager {
         }
       }
 
+      if (runAiChecks && aiSkipped) {
+        warnings.push(
+          'AI (Category 2) checks were enabled but OpenAI was unavailable (missing key or quota); those checks were skipped.'
+        );
+      }
+
       //--------------------------------------------------
       // Cookie Check (per domain, run once)
       //--------------------------------------------------
@@ -196,6 +255,28 @@ export class AgentManager {
       storageService.saveJson(scanId, 'screenshots.json', screenshots);
 
       //--------------------------------------------------
+      // Runtime Checks (once, over all captured data)
+      //--------------------------------------------------
+
+      scannerService.updateScan(scanId, {
+        progress: 86,
+
+        currentStep: 'Analyzing Runtime Behavior'
+      });
+
+      const networkLogs = networkService.getRequests();
+
+      const consoleLogs = consoleService.getLogs();
+
+      const runtimeFindings = runtimeCheck.execute({
+        requests: networkLogs,
+
+        consoleErrors: consoleService.getErrors(),
+
+        pageContexts
+      });
+
+      //--------------------------------------------------
       // Collect Logs
       //--------------------------------------------------
 
@@ -207,9 +288,21 @@ export class AgentManager {
 
       const screenshot = firstScreenshot;
 
-      const networkLogs = networkService.getRequests();
+      //--------------------------------------------------
+      // Filter every finding by the user's enabled checks.
+      //--------------------------------------------------
 
-      const consoleLogs = consoleService.getLogs();
+      const rawFindings = [
+        ...headerFindings,
+        ...cookieFindings,
+        ...formFindings,
+        ...runtimeFindings,
+        ...aiFindings
+      ];
+
+      const allFindings = rawFindings.filter(finding => enabledChecks.has(finding.checkId));
+
+      const totalFindings = allFindings.length;
 
       //--------------------------------------------------
       // Save Artifacts
@@ -222,15 +315,38 @@ export class AgentManager {
 
       storageService.saveJson(scanId, 'console.json', consoleLogs);
 
-      storageService.saveJson(scanId, 'headers.json', headerFindings);
+      // Persist findings grouped so the report/artifact readers still work.
+      storageService.saveJson(
+        scanId,
+        'headers.json',
+        allFindings.filter(
+          f => f.category === 'HTTP Headers' || f.category === 'Information Disclosure'
+        )
+      );
 
-      storageService.saveJson(scanId, 'cookies.json', cookieFindings);
+      storageService.saveJson(
+        scanId,
+        'cookies.json',
+        allFindings.filter(f => f.category === 'Cookies')
+      );
 
-      storageService.saveJson(scanId, 'forms.json', formFindings);
+      storageService.saveJson(
+        scanId,
+        'forms.json',
+        allFindings.filter(f => f.category === 'Forms' || f.category === 'CSRF')
+      );
 
-      const allFindings = [...headerFindings, ...cookieFindings, ...formFindings];
+      storageService.saveJson(
+        scanId,
+        'runtime.json',
+        allFindings.filter(f => runtimeCheckCategories.has(f.category))
+      );
 
-      const totalFindings = allFindings.length;
+      storageService.saveJson(
+        scanId,
+        'ai-findings.json',
+        allFindings.filter(f => f.category.startsWith('AI:'))
+      );
 
       const aiAnalysis = await aiService.analyze(allFindings);
 
@@ -248,6 +364,10 @@ export class AgentManager {
         pagesDiscovered: pages.length,
 
         pagesScanned: pages.length,
+
+        enabledChecks: appSettings.enabledChecks,
+
+        warnings,
 
         completedAt: new Date()
       });

@@ -271,7 +271,7 @@ export class NewScanComponent implements OnDestroy {
 
       password: this.scanForm.value.password,
 
-      maxPages: 500
+      maxPages: 50
     };
 
     this.scannerService

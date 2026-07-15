@@ -8,7 +8,8 @@
 /bazel-out
 /.claude
 /backend/node_modules
-/backend/.graphify-out
+/backend/graphify-out
+/backend/dist
 
 # Node
 /node_modules

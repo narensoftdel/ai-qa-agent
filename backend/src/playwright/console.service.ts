@@ -46,6 +46,11 @@ export class ConsoleService {
     return this.logs;
   }
 
+  /** Console entries of type `error` (includes page errors / failed loads). */
+  getErrors(): BrowserConsoleLog[] {
+    return this.logs.filter(log => log.type === 'error');
+  }
+
   clear(): void {
     this.logs.length = 0;
   }

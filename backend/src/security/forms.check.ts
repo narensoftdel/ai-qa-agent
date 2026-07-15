@@ -23,6 +23,8 @@ export class FormsCheck {
         findings.push({
           id: randomUUID(),
 
+          checkId: 'forms-get',
+
           category: 'Forms',
 
           title: 'Form submits using GET',
@@ -44,6 +46,8 @@ export class FormsCheck {
       if (passwordField && !session.page.url().startsWith('https://')) {
         findings.push({
           id: randomUUID(),
+
+          checkId: 'password-http',
 
           category: 'Forms',
 
@@ -69,6 +73,8 @@ export class FormsCheck {
         findings.push({
           id: randomUUID(),
 
+          checkId: 'autocomplete-sensitive',
+
           category: 'Forms',
 
           title: 'Password autocomplete enabled',
@@ -83,6 +89,41 @@ export class FormsCheck {
 
           evidence: 'autocomplete="on"'
         });
+      }
+
+      // CSRF token: state-changing (POST) forms should carry an
+      // anti-forgery token as a hidden field.
+      if (method.toUpperCase() === 'POST') {
+        const hasCsrfToken = await form.$$eval('input[type="hidden"]', inputs =>
+          inputs.some(input => {
+            const name = (input.getAttribute('name') ?? '').toLowerCase();
+
+            return /csrf|xsrf|_token|authenticity/.test(name);
+          })
+        );
+
+        if (!hasCsrfToken) {
+          findings.push({
+            id: randomUUID(),
+
+            checkId: 'csrf-token',
+
+            category: 'CSRF',
+
+            title: 'POST form without CSRF token',
+
+            severity: 'MEDIUM',
+
+            page: session.page.url(),
+
+            description: 'A state-changing form has no recognizable anti-CSRF hidden token field.',
+
+            recommendation:
+              'Include a per-session CSRF token in the form and validate it server-side.',
+
+            evidence: action ?? ''
+          });
+        }
       }
     }
 

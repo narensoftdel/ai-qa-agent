@@ -13,6 +13,8 @@ export class CookiesCheck {
         findings.push({
           id: randomUUID(),
 
+          checkId: 'cookie-flags',
+
           category: 'Cookies',
 
           title: `Cookie "${cookie.name}" missing Secure flag`,
@@ -33,6 +35,8 @@ export class CookiesCheck {
         findings.push({
           id: randomUUID(),
 
+          checkId: 'cookie-flags',
+
           category: 'Cookies',
 
           title: `Cookie "${cookie.name}" missing HttpOnly flag`,
@@ -52,6 +56,8 @@ export class CookiesCheck {
       if (cookie.sameSite === 'None' && !cookie.secure) {
         findings.push({
           id: randomUUID(),
+
+          checkId: 'cookie-flags',
 
           category: 'Cookies',
 

@@ -7,6 +7,12 @@ export interface NetworkRequest {
   url: string;
 
   resourceType: string;
+
+  status?: number;
+
+  contentType?: string;
+
+  failure?: string;
 }
 
 export class NetworkService {
@@ -24,6 +30,35 @@ export class NetworkService {
         resourceType: request.resourceType()
       });
     });
+
+    // Attach status/content-type once the response arrives.
+    session.page.on('response', response => {
+      const entry = this.findLatest(response.url());
+
+      if (entry) {
+        entry.status = response.status();
+
+        entry.contentType = response.headers()['content-type'];
+      }
+    });
+
+    session.page.on('requestfailed', request => {
+      const entry = this.findLatest(request.url());
+
+      if (entry) {
+        entry.failure = request.failure()?.errorText ?? 'failed';
+      }
+    });
+  }
+
+  private findLatest(url: string): NetworkRequest | undefined {
+    for (let i = this.requests.length - 1; i >= 0; i--) {
+      if (this.requests[i].url === url) {
+        return this.requests[i];
+      }
+    }
+
+    return undefined;
   }
 
   getRequests(): NetworkRequest[] {

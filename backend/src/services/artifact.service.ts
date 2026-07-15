@@ -31,7 +31,7 @@ export class ArtifactService {
   }
 
   /**
-   * All findings (headers + cookies + forms) for a scan.
+   * All persisted findings for a scan across every check category.
    */
   getFindings(scanId: string): SecurityFinding[] {
     return [
@@ -39,7 +39,11 @@ export class ArtifactService {
 
       ...this.readJson<SecurityFinding[]>(scanId, 'cookies.json', []),
 
-      ...this.readJson<SecurityFinding[]>(scanId, 'forms.json', [])
+      ...this.readJson<SecurityFinding[]>(scanId, 'forms.json', []),
+
+      ...this.readJson<SecurityFinding[]>(scanId, 'runtime.json', []),
+
+      ...this.readJson<SecurityFinding[]>(scanId, 'ai-findings.json', [])
     ];
   }
 
